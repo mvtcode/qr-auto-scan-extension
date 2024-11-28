@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Payment</title>
+    <script src="qrcode.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            display: flex;
+            border: 1px solid #ddd;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .left, .right {
+            margin: 10px;
+            padding: 20px;
+        }
+        .left {
+            border-right: 1px solid #ddd;
+            text-align: center;
+        }
+        .right {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .qr-container {
+            margin-bottom: 10px;
+        }
+        .amount {
+            font-size: 20px;
+            font-weight: bold;
+            color: red;
+        }
+        .button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-top: 10px;
+            text-align: center;
+        }
+        .button.cancel {
+            background-color: #ddd;
+            color: #333;
+        }
+        .button:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Left section -->
+        <div class="left">
+            <h3>Thanh toán qua ứng dụng<br>Mobile Banking</h3>
+            <p>Quét mã VNPAY QR</p>
+            <div id="qrcode" class="qr-container"></div>
+            <p class="amount">Nạp tiền điện thoại<br>100.000 VND</p>
+        </div>
+        
+        <!-- Right section -->
+        <div class="right">
+            <h3>Thanh toán qua Ngân hàng Techcombank</h3>
+            <p>Bấm "Tiếp tục" để thực hiện Thanh toán qua Ngân hàng</p>
+            <button class="button">TIẾP TỤC</button>
+            <button class="button cancel">HỦY</button>
+        </div>
+    </div>
+
+    <script>
+        // Generate random QR code
+        function generateRandomQRCode() {
+            const randomData = Math.random().toString(36).substring(2, 15);
+            new QRCode(document.getElementById("qrcode"), randomData);
+        }
+
+        // Call the function to generate QR code
+        generateRandomQRCode();
+    </script>
+</body>
+</html>

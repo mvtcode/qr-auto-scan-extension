@@ -1,0 +1,44 @@
+.qr-detection-container {
+  position: relative;
+  display: inline-block;
+}
+
+.qr-nextpay-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0,0,0,0.3);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.qr-detection-container:hover .qr-nextpay-overlay {
+  opacity: 1;
+}
+
+.nextpay-send-button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.nextpay-send-button:hover {
+  transform: scale(1.05);
+}
+
+.nextpay-send-button img {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
