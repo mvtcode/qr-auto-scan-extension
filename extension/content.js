@@ -3,6 +3,7 @@
     const images = document.getElementsByTagName('img');
     
     for (let img of images) {
+      img.crossOrigin = "Anonymous";
       if (img.complete) {
         processImageForQR(img);
       } else {
@@ -36,28 +37,6 @@
     }
   }
 
-  // function addNextpayButton(imgElement, qrData) {
-  //   if (imgElement.nextSibling && imgElement.nextSibling.classList.contains('qr-nextpay-container')) {
-  //     return;
-  //   }
-
-  //   imgElement.classList.add('qr-code-image');
-
-  //   const container = document.createElement('div');
-  //   container.className = 'qr-nextpay-container';
-    
-  //   const button = document.createElement('button');
-  //   button.className = 'nextpay-send-button';
-  //   button.innerHTML = `Send to Nextpay `;
-    
-  //   button.onclick = () => {
-  //     alert(`Đã gửi code QR tới Nextpay: ${qrData}`);
-  //   };
-    
-  //   container.appendChild(button);
-  //   imgElement.parentNode.insertBefore(container, imgElement.nextSibling);
-  // }
-
   function addQROverlay(imgElement, qrData) {
     // Tạo container bao quanh ảnh
     const container = document.createElement('div');
@@ -72,20 +51,39 @@
     overlay.className = 'qr-nextpay-overlay';
     overlay.innerHTML = `
       <button class="nextpay-send-button">
-        Send to Nextpay
+        Gửi QR tới Tingbox
       </button>
     `;
     
-    overlay.querySelector('.nextpay-send-button').onclick = () => {
-      // sendToNextpay(qrData);
-      alert(`Đã gửi code QR tới Nextpay: ${qrData}`);
+    overlay.querySelector('.nextpay-send-button').onclick = (e) => {
+      e.preventDefault();
+      alert(`Đã gửi code QR tới Tingbox: ${qrData}`);
     };
     
     container.appendChild(overlay);
   }
 
-  detectQRCodes();
+  // detectQRCodes();
 
+  let tInterval = null;
+  const detectReadyPage = () => {
+    const btnSubmit = document.getElementsByClassName('btn-submit');
+    if (btnSubmit.length > 0) {
+      clearInterval(tInterval);
+      btnSubmit[0].addEventListener('click', () => {
+        const tLoading = setInterval(() => {
+          if (!btnSubmit[0].classList.contains('is-loading')) {
+            clearInterval(tLoading);
+            detectQRCodes();
+          }
+        }, 500);
+      }, { once: true });
+    }
+  }
+  tInterval = setInterval(() => {
+    detectReadyPage();
+  }, 1000);
+  
   const observer = new MutationObserver(detectQRCodes);
   observer.observe(document.body, { 
     childList: true, 

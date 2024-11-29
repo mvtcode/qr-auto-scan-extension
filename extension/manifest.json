@@ -12,7 +12,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
+      "matches": ["https://mynextpaytech-dev.nextpay.vn/qr-code"],
       "js": ["jsqr.min.js", "content.js"],
       "css": ["styles.css"],
       "run_at": "document_idle"
